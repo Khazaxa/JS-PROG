@@ -157,13 +157,21 @@
     }
 
     const calculate = () => {
-        const liczby = inputs.map(inputId => Number(document.querySelector(`#${inputId}`).value));
-
-        const suma = liczby.reduce((a, b) => a + b, 0);
-        const srednia = suma / liczby.length;
-        const min = Math.min(...liczby);
-        const max = Math.max(...liczby);
-
-        wynikiPojemnik.textContent = `Suma: ${suma}\nŚrednia: ${srednia}\nMinimum: ${min}\nMaksimum: ${max}`;
+        const liczby = inputs
+            .map(inputId => document.querySelector(`#${inputId}`).value)
+            .filter(value => value !== '')
+            .map(value => Number(value));
+    
+        if (liczby.length > 0) {
+            const suma = liczby.reduce((a, b) => a + b, 0);
+            const srednia = suma / liczby.length;
+            const min = Math.min(...liczby);
+            const max = Math.max(...liczby);
+    
+            wynikiPojemnik.textContent = `Suma: ${suma}\nŚrednia: ${srednia}\nMinimum: ${min}\nMaksimum: ${max}`;
+        } else {
+            wynikiPojemnik.textContent = "Proszę wprowadzić przynajmniej jedną liczbę.";
+        }
     }
+    
 }

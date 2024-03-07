@@ -4,20 +4,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lab 1</title>
+  <link rel="stylesheet" href="style.css">
+  <title>Lab 2</title>
+  <script src="main.js" type="text/javascript"></script>
 </head>
 
 <body>
-  <div id="pola">
-    <label>Liczba 1: </label><input type="text" id="liczba1" /><br>
-    <label>Liczba 2: </label><input type="text" id="liczba2" /><br>
-    <label>Liczba 3: </label><input type="text" id="liczba3" /><br>
-    <!-- <label>Liczba 4: </label><input type="text" id="liczba4" /><br> -->
+  <div id="main">
+    <section class="slider">
+      <div id="slider-inner">
+        <img id="image1" src="https://picsum.photos/200/300" alt="image1" />
+        <img id="image2" src="https://picsum.photos/200" alt="image2" />
+        <img id="image3" src="https://picsum.photos/200/200" alt="image3" />
+        <img id="image4" src="https://picsum.photos/200/150" alt="image4" />
+        <img id="image5" src="https://picsum.photos/200/100" alt="image5" />
+    </div>
+    </section>
+    <div id="radios">
+      <input type="radio" name="img" id="img1" onclick="changeImage(1)">
+      <input type="radio" name="img" id="img2" onclick="changeImage(2)">
+      <input type="radio" name="img" id="img3" onclick="changeImage(3)">
+      <input type="radio" name="img" id="img4" onclick="changeImage(4)">
+      <input type="radio" name="img" id="img5" onclick="changeImage(5)">
   </div>
-  <button id="dodaj">+</button>
-  <!-- <button id="przelicz">Przelicz</button> -->
-  <div id="wyniki"></div>
-  <script src="main.js" type="text/javascript"></script>
+  </div>
+  
 </body>
 
 </html>

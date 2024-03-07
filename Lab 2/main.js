@@ -58,5 +58,15 @@ function prevImage() {
     changeImage(currentImage);
 }
 
+function pauseSlider() {
+    // implement
+    clearInterval(autoSlideInterval);
+}
+
+function resumeSlider() {
+    // implement
+    autoSlideInterval = setInterval(showNextImage, 5000);
+}
+
 
 setInterval(showNextImage, 5000);

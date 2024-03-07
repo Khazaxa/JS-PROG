@@ -35,3 +35,8 @@
     align-items: center;
     gap: 10px;
 }
+
+#pause img, #resume img {
+    height: 20px;
+    width: 20px;
+}

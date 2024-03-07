@@ -19,7 +19,6 @@ const anim = setInterval(() => {
 
     if (firstImage.getBoundingClientRect().right <= 0) {
         box.appendChild(firstImage);
-       // box.style.transform = 'translate(0px, 0px)';
         positionX = 0;
     }
 }, 10);

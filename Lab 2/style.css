@@ -1,0 +1,21 @@
+.slider {
+    width: 400px;
+    height: 200px;
+    border: 1px solid black;
+    overflow: hidden;
+}
+
+#slider-inner {
+    width: max-content;
+    height: max-content;
+    overflow: hidden;
+    position: relative;
+    background-color: lightblue;
+    display : flex;
+}
+
+#slider-inner img {
+    flex-shrink: 0;
+    width: 766px;
+    height: 200px;
+}

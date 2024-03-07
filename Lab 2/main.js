@@ -11,7 +11,7 @@ const anim = setInterval(() => {
         box.appendChild(firstImage);
         positionX = 0;
     }
-}, 10);
+}, 30);
 
 function showNextImage() {
     const images = document.querySelectorAll('#slider-inner img');
@@ -35,7 +35,28 @@ function changeImage(imageNumber) {
     const selectedImage = document.getElementById('image' + imageNumber);
     selectedImage.style.display = 'block';
     
+    const radios = document.querySelectorAll('input[type=radio]');
+    radios.forEach(radio => radio.checked = false);
+    radios[imageNumber - 1].checked = true;
+    
     currentImage = imageNumber;
 }
 
-setInterval(showNextImage, 3000);
+function nextImage() {
+    currentImage--;
+    if (currentImage < 1) {
+        currentImage = document.querySelectorAll('#slider-inner img').length;
+    }
+    changeImage(currentImage);
+}
+
+function prevImage() {
+    currentImage++;
+    if (currentImage > document.querySelectorAll('#slider-inner img').length) {
+        currentImage = 1;
+    }
+    changeImage(currentImage);
+}
+
+
+setInterval(showNextImage, 5000);

@@ -1,16 +1,6 @@
-// tworzenie img w js
-// const img1 = document.createElement('img');
-// const img2 = new Image();
-
-// img1.src = "";
-
-// setTimeout(), setInterval()
-// setTimeout(() => {
-//     console.log('hello')
-//     const box = document.querySelector('#slider-inner')
-// }, 5000);
-
 let positionX = 0;
+let currentImage = 5;
+
 const anim = setInterval(() => {
     const box = document.querySelector('#slider-inner');
     const firstImage = box.querySelector('img');
@@ -23,6 +13,29 @@ const anim = setInterval(() => {
     }
 }, 10);
 
-//setTimeout(() => {
-//    clearInterval(anim);
-//}, 50_000);
+function showNextImage() {
+    const images = document.querySelectorAll('#slider-inner img');
+    images.forEach(img => img.style.display = 'none');
+    if (currentImage < 1) {
+        currentImage = images.length;
+    }
+    const nextImage = document.getElementById('image' + currentImage);
+    nextImage.style.display = 'block';
+    
+    const radios = document.querySelectorAll('input[type=radio]');
+
+    radios[currentImage - 1].checked = true;
+    
+    currentImage--;
+}
+
+function changeImage(imageNumber) {
+    const images = document.querySelectorAll('#slider-inner img');
+    images.forEach(img => img.style.display = 'none');
+    const selectedImage = document.getElementById('image' + imageNumber);
+    selectedImage.style.display = 'block';
+    
+    currentImage = imageNumber;
+}
+
+setInterval(showNextImage, 3000);

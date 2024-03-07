@@ -1,5 +1,13 @@
+#main {
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items: center;
+    gap: 10px;
+}
+
 .slider {
-    width: 400px;
+    width: 550px;
     height: 200px;
     border: 1px solid black;
     overflow: hidden;
@@ -12,10 +20,18 @@
     position: relative;
     background-color: lightblue;
     display : flex;
+    margin: auto;
 }
 
 #slider-inner img {
     flex-shrink: 0;
     width: 766px;
     height: 200px;
+}
+
+#radios {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }

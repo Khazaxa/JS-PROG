@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let recording = false;
     let recordStartTime;
     let activeChannel = 0;
+    let metronomeInterval;
 
     document.addEventListener('keydown', event => {
         if (!recording) return;
@@ -50,4 +51,30 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#channelSelect').addEventListener('change', (event) => {
         activeChannel = parseInt(event.target.value, 10);
     });
+
+    document.querySelector('#addChannel').addEventListener('click', () => {
+        channels.push([]);
+    });
+    
+    function startMetronome(bpm) {
+        const beatInterval = 60000 / bpm;
+        const metronomeSound = document.querySelector('#boom');
+
+        if (metronomeInterval) clearInterval(metronomeInterval);
+        metronomeInterval = setInterval(() => {
+            metronomeSound.currentTime = 0;
+            metronomeSound.play(); 
+        }, beatInterval);
+    }
+
+    function stopMetronome() {
+        if (metronomeInterval) clearInterval(metronomeInterval);
+    }
+
+    document.querySelector('#startMetronome').addEventListener('click', () => {
+        const bpm = document.querySelector('#metronomeBPM').value;
+        startMetronome(bpm);
+    });
+
+    document.querySelector('#stopMetronome').addEventListener('click', stopMetronome);
 });

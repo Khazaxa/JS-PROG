@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Lab 3</title>
 </head>
 <body>
@@ -12,13 +13,30 @@
     <audio id="tom" src="sounds/tom.wav"></audio>
     <audio id="boom" src="sounds/boom.wav"></audio>
 
-    <label for="channelSelect">Choose a channel:</label>
-    <select id="channelSelect">
-        <option value="0">Channel 1</option>
-        <option value="1">Channel 2</option>
-        <option value="2">Channel 3</option>
-        <option value="3">Channel 4</option>
-    </select>
+    <div class="metronome-controls">
+      <div class="metronome-selector">
+          <button id="startMetronome">Start Metronome</button>
+          <div class="bpm-controls">
+              <label for="metronomeBPM">BPM:</label>
+              <input type="number" id="metronomeBPM" value="120">
+          </div>
+          <button id="stopMetronome">Stop Metronome</button>
+      </div>
+  </div>
+
+    <div class="channel-controls">
+      <label for="channelSelect">Choose a channel:</label>
+      <div class="channel-selector">
+          <button id="addChannel">+</button>
+          <select id="channelSelect">
+              <option value="0">Channel 1</option>
+              <option value="1">Channel 2</option>
+              <option value="2">Channel 3</option>
+              <option value="3">Channel 4</option>
+          </select>
+          <button id="removeChannel">-</button>
+      </div>
+    </div>
     
     <button id="startRecord">Start Record</button>
     <button id="stopRecord">Stop Record</button>

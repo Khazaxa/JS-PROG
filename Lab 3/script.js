@@ -9,10 +9,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let channels = [[], [], [], []];
     let recording = false;
     let recordStartTime;
-    let activeChannel = 0;
     let metronomeInterval;
     const metronomeSound = document.querySelector('#boom');
-    const channelSelect = document.querySelector('#channelSelect');
+    let selectedChannels = [0]; // Kanał 1 jest domyślnie wybrany
+
+    function updateSelectedChannels() {
+        selectedChannels = []; // Wyczyść obecną listę
+        const checkboxes = document.querySelectorAll('.channel-checkboxes input[type="checkbox"]:checked');
+        checkboxes.forEach((checkbox) => {
+            selectedChannels.push(parseInt(checkbox.getAttribute('data-channel-index')));
+        });
+    }
 
     document.addEventListener('keydown', event => {
         if (!recording) return;
@@ -21,15 +28,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sound) {
             const now = Date.now();
             const timeOffset = now - recordStartTime;
-            
+
             sound.currentTime = 0;
             sound.play();
-            
-            channels[activeChannel].push({ key: event.key, time: timeOffset });
+
+            selectedChannels.forEach(channelIndex => {
+                if (recording) {
+                    channels[channelIndex] = channels[channelIndex].filter(note => note.time < recordStartTime);
+                    channels[channelIndex].push({ key: event.key, time: timeOffset });
+                }
+            });
         }
     });
 
     document.querySelector('#startRecord').addEventListener('click', () => {
+        updateSelectedChannels();
         recording = true;
         recordStartTime = Date.now();
     });
@@ -38,99 +51,74 @@ document.addEventListener('DOMContentLoaded', () => {
         recording = false;
     });
 
-    document.querySelector('#playSingleChannel').addEventListener('click', () => {
-        channels[activeChannel].forEach(soundObj => {
-            setTimeout(() => {
-                const sound = sounds[soundObj.key];
-                sound.currentTime = 0;
-                sound.play();
-            }, soundObj.time);
-        });
-    });
-
     document.querySelector('#playRecord').addEventListener('click', () => {
-        channels.forEach(channel => {
-            channel.forEach(note => {
+        updateSelectedChannels();
+    
+        selectedChannels.forEach(channelIndex => {
+            const channelStartTime = channels[channelIndex][0] ? channels[channelIndex][0].time : 0;
+            channels[channelIndex].forEach(soundObj => {
+                const delay = soundObj.time - channelStartTime;
+    
                 setTimeout(() => {
-                    const sound = sounds[note.key];
+                    const sound = sounds[soundObj.key];
                     sound.currentTime = 0;
                     sound.play();
-                }, note.time);
+                }, delay);
             });
         });
     });
-
-    document.querySelector('#channelSelect').addEventListener('change', (event) => {
-        activeChannel = parseInt(event.target.value, 10);
-    });
-
-    function updateChannelList() {
-        channelSelect.innerHTML = '';
-        channels.forEach((channel, index) => {
-            const option = document.createElement('option');
-            option.value = index;
-            option.text = `Channel ${index + 1}`;
-            channelSelect.appendChild(option);
-        });
-    }
-
-    function updateChannelCheckboxes() {
-        const container = document.querySelector('.channel-checkboxes');
-        container.innerHTML = '';
-        channels.forEach((channel, index) => {
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.id = 'channel' + index;
-            checkbox.addEventListener('change', (event) => {
-                if (event.target.checked) {
-                    selectedChannels.push(index);
-                } else {
-                    selectedChannels = selectedChannels.filter(channel => channel !== index);
-                }
-            });
-            container.appendChild(checkbox);
-            container.appendChild(document.createTextNode('Channel ' + (index + 1)));
-            container.appendChild(document.createElement('br'));
-        });
-    }
+    
 
     document.querySelector('#addChannel').addEventListener('click', () => {
         channels.push([]);
-        updateChannelList();
         updateChannelCheckboxes();
     });
 
     document.querySelector('#removeChannel').addEventListener('click', () => {
         if (channels.length > 1) {
             channels.pop();
-            updateChannelList();
-            updateChannelCheckboxes()
+            updateChannelCheckboxes();
         }
     });
-    
+
     function startMetronome(bpm) {
         const beatInterval = 60000 / bpm;
-
         if (metronomeInterval) clearInterval(metronomeInterval);
         metronomeInterval = setInterval(() => {
             metronomeSound.currentTime = 0;
             metronomeSound.play();
         }, beatInterval);
     }
-    
+
     function stopMetronome() {
         if (metronomeInterval) clearInterval(metronomeInterval);
     }
-    
+
     document.querySelector('#startMetronome').addEventListener('click', () => {
         const bpm = document.querySelector('#metronomeBPM').value;
         startMetronome(bpm);
     });
-    
-    document.querySelector('#metronomeBPM').addEventListener('input', (event) => {
-        const bpm = event.target.value;
-        startMetronome(bpm);
-    });
 
     document.querySelector('#stopMetronome').addEventListener('click', stopMetronome);
+
+    function updateChannelCheckboxes() {
+        const container = document.querySelector('.channel-checkboxes');
+        container.innerHTML = '';
+        channels.forEach((_, index) => {
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = 'channel' + index;
+            checkbox.setAttribute('data-channel-index', index);
+            checkbox.checked = selectedChannels.includes(index);
+            const label = document.createElement('label');
+            label.htmlFor = 'channel' + index;
+            label.textContent = ' Channel ' + (index + 1);
+
+            container.appendChild(checkbox);
+            container.appendChild(label);
+            container.appendChild(document.createElement('br'));
+        });
+    }
+
+    updateChannelCheckboxes();
 });

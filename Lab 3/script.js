@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let recordStartTime;
     let activeChannel = 0;
     let metronomeInterval;
+    const metronomeSound = document.querySelector('#boom');
 
     document.addEventListener('keydown', event => {
         if (!recording) return;
@@ -58,21 +59,25 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function startMetronome(bpm) {
         const beatInterval = 60000 / bpm;
-        const metronomeSound = document.querySelector('#boom');
 
         if (metronomeInterval) clearInterval(metronomeInterval);
         metronomeInterval = setInterval(() => {
             metronomeSound.currentTime = 0;
-            metronomeSound.play(); 
+            metronomeSound.play();
         }, beatInterval);
     }
-
+    
     function stopMetronome() {
         if (metronomeInterval) clearInterval(metronomeInterval);
     }
-
+    
     document.querySelector('#startMetronome').addEventListener('click', () => {
         const bpm = document.querySelector('#metronomeBPM').value;
+        startMetronome(bpm);
+    });
+    
+    document.querySelector('#metronomeBPM').addEventListener('input', (event) => {
+        const bpm = event.target.value;
         startMetronome(bpm);
     });
 

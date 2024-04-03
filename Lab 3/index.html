@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lab 3</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 3</title>
 </head>
-
 <body>
-    <audio src="./sounds/clap.wav" controls id="s1"></audio>
-    <audio src="./sounds/kick.wav" controls id="s2"></audio>
-    <audio src="./sounds/hihat.wav" controls id="s3"></audio>
-    <audio src="./sounds/tom.wav" controls id="s4"></audio>
+    <audio id="clap" src="sounds/clap.wav"></audio>
+    <audio id="kick" src="sounds/kick.wav"></audio>
+    <audio id="hihat" src="sounds/hihat.wav"></audio>
+    <audio id="tom" src="sounds/tom.wav"></audio>
+    <audio id="boom" src="sounds/boom.wav"></audio>
+
+    <label for="channelSelect">Choose a channel:</label>
+    <select id="channelSelect">
+        <option value="0">Channel 1</option>
+        <option value="1">Channel 2</option>
+        <option value="2">Channel 3</option>
+        <option value="3">Channel 4</option>
+    </select>
+    
     <button id="startRecord">Start Record</button>
     <button id="stopRecord">Stop Record</button>
-    <button id="playRecord"><img src="./img/icons8-play-50.png"></button>
-    <script src="script.js" type="text/javascript"></script>
-</body>
+    <button id="playRecord">Play All Channels</button>
 
+    <script src="script.js"></script>
+</body>
 </html>

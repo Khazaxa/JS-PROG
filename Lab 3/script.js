@@ -1,51 +1,53 @@
-const clap = document.querySelector('#s1');
-const kick = document.querySelector('#s2');
-const hihat = document.querySelector('#s3');
-const tom = document.querySelector('#s4');
+document.addEventListener('DOMContentLoaded', () => {
+    const sounds = {
+        'a': document.querySelector('#clap'),
+        's': document.querySelector('#kick'),
+        'd': document.querySelector('#hihat'),
+        'f': document.querySelector('#tom'),
+    };
 
-const date = Date.now();
-let record = [];
-let recording = false;
-const sounds = {
-    "a": clap, 
-    "s": kick, 
-    "d": hihat,
-    "f": tom
-};
+    let channels = [[], [], [], []];
+    let recording = false;
+    let recordStartTime;
+    let activeChannel = 0;
 
-function startRecord() {
-    record = [];
-    recording = true;
-    addEventListener("keypress", recordKeyPress);
-};
+    document.addEventListener('keydown', event => {
+        if (!recording) return;
 
-function stopRecord() {
-    recording = false;
-};
-
-function recordKeyPress(ev) {
-    if (!recording) return;
-    const key = ev.key;
-    const time = Date.now() - date;
-
-    const sound = sounds[key];
-    sound.currentTime = 0;
-    sound.play();
-    record.push({key, time});
-};
-
-function playRecord() {
-    let lastTime = 0;
-    record.forEach(({key, time}) => {
-        const sound = sounds[key];
-        setTimeout(() => {
+        const sound = sounds[event.key];
+        if (sound) {
+            const now = Date.now();
+            const timeOffset = now - recordStartTime;
+            
             sound.currentTime = 0;
             sound.play();
-        }, time - lastTime);
-        lastTime = time;
+            
+            channels[activeChannel].push({ key: event.key, time: timeOffset });
+        }
     });
-};
 
-document.querySelector('#playRecord').addEventListener('click', playRecord);
-document.querySelector('#startRecord').addEventListener('click', startRecord);
-document.querySelector('#stopRecord').addEventListener('click', stopRecord);
+    document.querySelector('#startRecord').addEventListener('click', () => {
+        recording = true;
+        recordStartTime = Date.now();
+    });
+
+    document.querySelector('#stopRecord').addEventListener('click', () => {
+        recording = false;
+    });
+
+    document.querySelector('#playRecord').addEventListener('click', () => {
+        channels.forEach(channel => {
+            channel.forEach(note => {
+                setTimeout(() => {
+                    const sound = sounds[note.key];
+                    sound.currentTime = 0;
+                    sound.play();
+                }, note.time);
+            });
+        });
+    });
+
+    document.querySelector('#channelSelect').addEventListener('change', (event) => {
+        activeChannel = parseInt(event.target.value, 10);
+    });
+});

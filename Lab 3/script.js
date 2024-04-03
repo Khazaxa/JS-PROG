@@ -38,6 +38,16 @@ document.addEventListener('DOMContentLoaded', () => {
         recording = false;
     });
 
+    document.querySelector('#playSingleChannel').addEventListener('click', () => {
+        channels[activeChannel].forEach(soundObj => {
+            setTimeout(() => {
+                const sound = sounds[soundObj.key];
+                sound.currentTime = 0;
+                sound.play();
+            }, soundObj.time);
+        });
+    });
+
     document.querySelector('#playRecord').addEventListener('click', () => {
         channels.forEach(channel => {
             channel.forEach(note => {

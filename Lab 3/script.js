@@ -11,10 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let recordStartTime;
     let metronomeInterval;
     const metronomeSound = document.querySelector('#boom');
-    let selectedChannels = [0]; // Kanał 1 jest domyślnie wybrany
+    let selectedChannels = [0];
 
     function updateSelectedChannels() {
-        selectedChannels = []; // Wyczyść obecną listę
+        selectedChannels = [];
         const checkboxes = document.querySelectorAll('.channel-checkboxes input[type="checkbox"]:checked');
         checkboxes.forEach((checkbox) => {
             selectedChannels.push(parseInt(checkbox.getAttribute('data-channel-index')));

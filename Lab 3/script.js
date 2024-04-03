@@ -74,15 +74,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function updateChannelCheckboxes() {
+        const container = document.querySelector('.channel-checkboxes');
+        container.innerHTML = '';
+        channels.forEach((channel, index) => {
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = 'channel' + index;
+            checkbox.addEventListener('change', (event) => {
+                if (event.target.checked) {
+                    selectedChannels.push(index);
+                } else {
+                    selectedChannels = selectedChannels.filter(channel => channel !== index);
+                }
+            });
+            container.appendChild(checkbox);
+            container.appendChild(document.createTextNode('Channel ' + (index + 1)));
+            container.appendChild(document.createElement('br'));
+        });
+    }
+
     document.querySelector('#addChannel').addEventListener('click', () => {
         channels.push([]);
         updateChannelList();
+        updateChannelCheckboxes();
     });
 
     document.querySelector('#removeChannel').addEventListener('click', () => {
         if (channels.length > 1) {
             channels.pop();
             updateChannelList();
+            updateChannelCheckboxes()
         }
     });
     

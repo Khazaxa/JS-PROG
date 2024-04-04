@@ -1,0 +1,42 @@
+#main {
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items: center;
+    gap: 10px;
+}
+
+.slider {
+    width: 450px;
+    height: 200px;
+    border: 1px solid black;
+    overflow: hidden;
+}
+
+#slider-inner {
+    width: max-content;
+    height: max-content;
+    overflow: hidden;
+    position: relative;
+    background-color: lightblue;
+    display : flex;
+    margin: auto;
+}
+
+#slider-inner img {
+    flex-shrink: 0;
+    width: 766px;
+    height: 200px;
+}
+
+#radios {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#pause img, #resume img {
+    height: 20px;
+    width: 20px;
+}

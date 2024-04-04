@@ -2,6 +2,7 @@ let res = document.querySelector('#result');
 let input = document.querySelector('#inputs input');
 let sumButton = document.querySelector('#sum');
 let time1 = document.querySelector('#time1');
+let asyncOperationsCount = 0;
 let numbers = [];
 
 //generating numbers from 1 to 100
@@ -20,13 +21,14 @@ async function updateResult() {
 }
 
 const asyncAdd = async (a,b) => {
+    asyncOperationsCount++;
     if (typeof a !== 'number' || typeof b !== 'number') {
       return Promise.reject('Argumenty muszą mieć typ number!')
     }
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(a+b)
-      }, 10)
+      }, 1)
     })
 }
 
@@ -53,6 +55,7 @@ async function measureExecutionTime(func) {
 }
 
 sumButton.addEventListener('click', async () => {
+    asyncOperationsCount = 0;
     const time = await measureExecutionTime(updateResult);
-    time1.innerHTML = ` Czas obliczeń: ${time.toFixed(2)}ms`;
+    time1.innerHTML = `Czas obliczeń: ${time.toFixed(2)}ms<br><br>Ilość operacji asynchronicznych: ${asyncOperationsCount}`;
 });

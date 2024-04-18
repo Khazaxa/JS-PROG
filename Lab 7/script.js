@@ -1,3 +1,14 @@
+let beta = 0;
+let gamma = 0;
+let counter = 0;
+let lastTime = Date.now();
+let startTime = Date.now();
+
+function onDeviceMove(event) {
+    beta = event.beta;
+    gamma = event.gamma;
+}
+
 function animate() {
     const elapsed = Date.now() - startTime;
     const minutes = Math.floor(elapsed / 60000);
@@ -10,13 +21,8 @@ function animate() {
     const x = (gamma / maxAngle) * (boardRect.width - ball.offsetWidth);
     const y = (beta / maxAngle) * (boardRect.height - ball.offsetHeight);
 
-    // Obliczamy procenty x i y
-    const xPercent = (x / boardRect.width) * 100;
-    const yPercent = (y / boardRect.height) * 100;
-
-    // Ustawiamy left i top dla piłki na procenty x i y
-    ball.style.left = `${xPercent}%`;
-    ball.style.top = `${yPercent}%`;
+    ball.style.left = `${x}px`;
+    ball.style.top = `${y}px`;
 
     document.querySelector('#time').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}.${hundredths.toString().padStart(2, '0')}`;
 

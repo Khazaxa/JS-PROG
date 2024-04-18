@@ -1,9 +1,47 @@
+#topBar {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    background-color: rgb(255, 41, 41);
+    padding: 10px;
+    width: 500px;
+    margin: 50px auto;
+}
+
+#time {
+    margin-right: 20px;
+}
+
 #board {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 10px;
     width: 500px;
     height: 500px;
-    margin: 0 auto;
-    background-color: red;
+    margin: 50px auto;
+    background-color: rgb(112, 30, 30);
+}
+
+#ball {
+    position: absolute;
+    background-color: black;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    top: 0; 
+    left: 0;
+}
+
+.hole {
+    position: absolute; 
+    margin: 10px;
+    height: 100px;
+    width: 100px;
+    background-color: rgb(109, 109, 109);
+    border-radius: 50%;
+    top: auto; 
+    left: auto; 
+    bottom: 0; 
+    right: 0; 
 }

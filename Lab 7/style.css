@@ -1,47 +1,53 @@
-#topBar {
+body {
+    margin: 0;
+    padding: 0;
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
-    background-color: rgb(255, 41, 41);
-    padding: 10px;
-    width: 500px;
-    margin: 50px auto;
-}
-
-#time {
-    margin-right: 20px;
+    height: 100vh;
+    background-color: #f0f0f0;
 }
 
 #board {
     position: relative;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
-    width: 500px;
-    height: 500px;
-    margin: 50px auto;
-    background-color: rgb(112, 30, 30);
+    width: 300px;
+    height: 300px;
+    background-color: #ccc;
+    overflow: hidden;
 }
 
 #ball {
     position: absolute;
-    background-color: black;
+    width: 20px;
+    height: 20px;
+    background-color: red;
     border-radius: 50%;
-    height: 50px;
-    width: 50px;
-    top: 0; 
-    left: 0;
 }
 
 .hole {
-    position: absolute; 
-    margin: 10px;
-    height: 100px;
-    width: 100px;
-    background-color: rgb(109, 109, 109);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: black;
     border-radius: 50%;
-    top: auto; 
-    left: auto; 
-    bottom: 0; 
-    right: 0; 
+    transform: translate(-50%, -50%);
+}
+
+#topBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #eee;
+}
+
+#time, #score {
+    font-size: 18px;
 }

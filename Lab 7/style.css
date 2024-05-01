@@ -26,14 +26,22 @@ body {
 
 .hole {
     position: absolute;
-    left: 50%;
-    top: 50%;
     width: 30px;
     height: 30px;
     background-color: black;
     border-radius: 50%;
-    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: red;
 }
+
+.number {
+    font-size: 14px;
+    color: red;
+    font-weight: bold;
+}
+
 
 #topBar {
     position: fixed;

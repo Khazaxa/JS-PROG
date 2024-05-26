@@ -1,7 +1,7 @@
 let beta = 0;
 let gamma = 0;
 let holeIndex = 0;
-let holes = []; 
+let holes = [];
 let startTime = Date.now();
 let score = 0;
 
@@ -35,7 +35,6 @@ function createHoles(numberOfHoles) {
         holes.push(hole);
     }
 }
-
 
 function positionBall() {
     const boardRect = document.getElementById('board').getBoundingClientRect();
@@ -77,6 +76,7 @@ function checkCollision() {
         holeIndex++;
         if (holeIndex >= holes.length) {
             let time = document.getElementById('time').textContent;
+            saveResult(time, score);
             alert(`All holes completed! Time: ${time}`);
             holeIndex = 0;
         }
@@ -91,3 +91,28 @@ function updateTime() {
     const centiseconds = Math.floor((elapsed % 1000) / 10);
     document.getElementById('time').textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${centiseconds.toString().padStart(2, '0')}`;
 }
+
+function saveResult(time, score) {
+    const results = JSON.parse(localStorage.getItem('results') || '[]');
+    results.push({ time, score });
+    localStorage.setItem('results', JSON.stringify(results));
+    displayResults();
+}
+
+function displayResults() {
+    const resultsTableBody = document.getElementById('resultsTable').querySelector('tbody');
+    resultsTableBody.innerHTML = '';
+    const results = JSON.parse(localStorage.getItem('results') || '[]');
+    results.forEach(result => {
+        const row = document.createElement('tr');
+        const timeCell = document.createElement('td');
+        const scoreCell = document.createElement('td');
+        timeCell.textContent = result.time;
+        scoreCell.textContent = result.score;
+        row.appendChild(timeCell);
+        row.appendChild(scoreCell);
+        resultsTableBody.appendChild(row);
+    });
+}
+
+window.addEventListener('DOMContentLoaded', displayResults);

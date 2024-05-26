@@ -68,3 +68,20 @@ body {
 .note button:hover {
     background-color: #696969;
 }
+
+.note-display button {
+    margin: 5px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.note-display button:hover {
+    background-color: #696969;
+    color: white;
+}
+
+.editing {
+    background-color: #d3d3d3;
+}

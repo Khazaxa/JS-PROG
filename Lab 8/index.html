@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Aplikacja Pogodowa</title>
+</head>
+<body>
+    <div id="container">
+        <h1>Aplikacja Pogodowa</h1>
+        <div id="locations">
+            <input type="text" id="location-input" placeholder="Wprowadź nazwę miasta">
+            <button id="add-location">Dodaj lokalizację</button>
+            <ul id="location-list"></ul>
+        </div>
+        <div id="weather-data"></div>
+        <canvas id="hourly-chart"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
